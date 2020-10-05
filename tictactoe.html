@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link type="text/css" rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Tic-Tac-Toe</h1>
+    </header>
+    <section>
+        <p id="msg"></p>
+    </section>
+    <div id="table">
+        <table>
+            <tr>
+                <td id="td0" class="noTopBorder noLeftBorder"></td>
+                <td id="td1" class="noTopBorder"></td>
+                <td id="td2" class="noTopBorder noRightBorder"></td>
+            </tr>
+            <tr>
+                <td id="td3" class="noLeftBorder"></td>
+                <td id="td4"></td>
+                <td id="td5" class="noRightBorder"></td>
+            </tr>
+            <tr>
+                <td id="td6" class="noBottomBorder noLeftBorder"></td>
+                <td id="td7" class="noBottomBorder"></td>
+                <td id="td8" class="noBottomBorder noRightBorder"></td>
+            </tr>
+        </table>
+    </div>
+    <article id="xowins">
+        <div id="xdiv">
+            <h4 id="xwins">X Wins</h4>
+            <p id="xnum">0</p>
+        </div>
+        <br>
+        <div id="odiv">
+            <h4 id="owins">O Wins</h4>
+            <p id="onum">0</p>
+        </div>
+    </article>
+    <script src="code.js"></script>
+</body>
+</html>
