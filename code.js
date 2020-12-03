@@ -480,6 +480,8 @@ function checkWhoWon() {
 
 // Selectors
 const cells = document.querySelectorAll("td");
+const xDisplay = document.querySelector("#xnum");
+const oDisplay = document.querySelector("#onum");
 
 // Global Variables
 const winningLocations = [
@@ -583,9 +585,11 @@ cells.forEach((cell, index) => {
       // Win handler
       if (xWins) {
         xPts++;
+        xDisplay.innerHTML = xPts;
         nextGame();
       } else if (oWins) {
         oPts++;
+        oDisplay.innerHTML = oPts;
         nextGame();
       }
     }

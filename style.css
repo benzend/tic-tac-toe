@@ -1,80 +1,114 @@
 body {
-    background-color: white;
-    font-size: medium;
+  background-color: white;
+  font-size: medium;
 }
 
 header {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-size: 2em;
-    text-align: center;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: 2em;
+  text-align: center;
 }
 
 table {
-     position: relative;
-     width: 600px;
-     height: 600px;
-     margin: auto;
-     top: 50px;
-     border-collapse: collapse;
+  position: relative;
+  width: 30vw;
+  height: 30vw;
+  margin: auto;
+  top: 50px;
+  border-collapse: collapse;
 }
 
 td {
-    border: black solid 15px;
-    width: 50px;
-    height: 50px;
-    background-repeat: no-repeat;
-    background-position: center;
-    
+  border: black solid 15px;
+  width: 50px;
+  height: 50px;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .noBottomBorder {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .noTopBorder {
-    border-top: none;
+  border-top: none;
 }
 
 .noLeftBorder {
-    border-left: none;
+  border-left: none;
 }
 
 .noRightBorder {
-    border-right: none;
+  border-right: none;
 }
 
 #msg {
-    font-size: 2em;
-    font-family: fantasy;
-    font-weight: 900;
-    color: black;
-    position: absolute;
-    transform: rotate(-20deg);
-    top: 45px;
-    left: 45px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 2em;
+  font-family: fantasy;
+  font-weight: 900;
+  color: black;
+  position: absolute;
+  transform: rotate(-20deg);
+  top: 45px;
+  left: 45px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 .X {
-    background-image: url("images/x170.png");
+  background-image: url("images/x170.png");
 }
 
 .O {
-    background-image: url("images/circle180.jpg")
+  background-image: url("images/circle180.jpg");
 }
 
 #xowins {
-    position: absolute;
-    text-align: center;
-    right: 90px;
-    top: 250px;
-    font-size: 3em;
+  position: absolute;
+  text-align: center;
+  right: 90px;
+  top: 250px;
+  font-size: 3em;
 }
 
-#xdiv, #odiv {
-    line-height: 30%;
+#xdiv,
+#odiv {
+  line-height: 30%;
 }
 
-#xwins, #owins {
-    text-decoration: underline;
+#xwins,
+#owins {
+  text-decoration: underline;
+}
+@media (max-width: 1400px) {
+  table {
+    width: 50vw;
+    height: 50vw;
+  }
+  .X {
+    background-image: url("images/x130.png");
+  }
+}
+
+@media (max-width: 800px) {
+  table {
+    width: 60vw;
+    height: 60vw;
+  }
+  .X {
+    background-image: url("images/x80.png");
+  }
+
+  .O {
+    background-image: url("images/circle80.jpg");
+  }
+}
+
+@media (max-width: 500px) {
+  table {
+    top: 20px;
+    width: 100vw;
+    height: 100vw;
+  }
 }
