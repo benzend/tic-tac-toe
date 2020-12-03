@@ -280,187 +280,201 @@ function checkWhoWon() {
 
 */
 
-
-var tds = document.getElementsByTagName('td');
+const tds = document.getElementsByTagName("td");
 var gameEnd = false;
-var oFunctionIsDone = true;
-var xPoints = 0;
-var oPoints = 0;
-var isGameChecked = false;
+let oFunctionIsDone = true;
+let xPoints = 0;
+let oPoints = 0;
+let isGameChecked = false;
 // pointAdded is used because gameEnd was being used by other functions
 // thus colliding with itself.
-var pointAdded = false;
-var boardFull = false;
-var trueFalseArray = [];
-var stopInterval = false;
-
+let pointAdded = false;
+let boardFull = false;
+let trueFalseArray = [];
+let stopInterval = false;
 
 function makeTrueOrFalseArray() {
-    for (var i = 0; i < tds.length; i++) {
-        if (tds[i].classList.contains('O') || tds[i].classList.contains('X')) {
-            trueFalseArray[i] = true;
-        } else {
-            trueFalseArray[i] = false;
-        }
+  for (var i = 0; i < tds.length; i++) {
+    if (tds[i].classList.contains("O") || tds[i].classList.contains("X")) {
+      trueFalseArray[i] = true;
+    } else {
+      trueFalseArray[i] = false;
     }
+  }
 }
 
 var winningLocations = [
-    [0, 1, 2], 
-    [0, 3, 6], 
-    [0, 4, 8], 
-    [1, 4, 7], 
-    [2, 5, 8], 
-    [3, 4, 5], 
-    [6, 7, 8], 
-    [2, 4, 6]
-    ]
-
-
+  [0, 1, 2],
+  [0, 3, 6],
+  [0, 4, 8],
+  [1, 4, 7],
+  [2, 5, 8],
+  [3, 4, 5],
+  [6, 7, 8],
+  [2, 4, 6],
+];
 
 var interval = 400;
-var timer = window.setInterval(function(){
-    //this checks someone won and sets a point
-    console.log('your code is running');
-    var yourCodeHasBeenExecuted = false;
-    for (var i = 0; i < winningLocations.length; i++) {
-        var loc = winningLocations[i];
-        var tdClass0 = tds[loc[0]].classList;
-        var tdClass1 = tds[loc[1]].classList;
-        var tdClass2 = tds[loc[2]].classList;
-        makeTrueOrFalseArray(); 
-        (function() {
-            if (trueFalseArray.every(element => element)) {
-                    boardFull = true;
-                }
-            })();
-        if (tdClass0.contains('X') && tdClass1.contains('X') && 
-        tdClass2.contains('X') && pointAdded === false && stopInterval === false) {
-            if (boardFull) {
-                console.log('x still wins');
-                stopInterval = true;
-                pointAdded = true;
-                addPointToX();
-            } else {
-                console.log('x wins');
-                stopInterval = true;
-                pointAdded = true;
-                addPointToX();
-            }
-        } else if (tdClass0.contains('O') && tdClass1.contains('O') && 
-        tdClass2.contains('O') && pointAdded === false && stopInterval === false) {
-            if (boardFull) {
-                console.log('o still wins');
-                stopInterval = true;
-                pointAdded = true;
-                addPointToO();
-            } else {
-                console.log('o wins');
-                stopInterval = true;
-                pointAdded = true;
-                addPointToO();
-            }
-        } 
+var timer = window.setInterval(function () {
+  //this checks someone won and sets a point
+  console.log("your code is running");
+  var yourCodeHasBeenExecuted = false;
+  for (var i = 0; i < winningLocations.length; i++) {
+    var loc = winningLocations[i];
+    var tdClass0 = tds[loc[0]].classList;
+    var tdClass1 = tds[loc[1]].classList;
+    var tdClass2 = tds[loc[2]].classList;
+    makeTrueOrFalseArray();
+    (function () {
+      if (trueFalseArray.every((element) => element)) {
+        boardFull = true;
+      }
+    })();
+    if (
+      tdClass0.contains("X") &&
+      tdClass1.contains("X") &&
+      tdClass2.contains("X") &&
+      pointAdded === false &&
+      stopInterval === false
+    ) {
+      if (boardFull) {
+        console.log("x still wins");
+        stopInterval = true;
+        pointAdded = true;
+        addPointToX();
+      } else {
+        console.log("x wins");
+        stopInterval = true;
+        pointAdded = true;
+        addPointToX();
+      }
+    } else if (
+      tdClass0.contains("O") &&
+      tdClass1.contains("O") &&
+      tdClass2.contains("O") &&
+      pointAdded === false &&
+      stopInterval === false
+    ) {
+      if (boardFull) {
+        console.log("o still wins");
+        stopInterval = true;
+        pointAdded = true;
+        addPointToO();
+      } else {
+        console.log("o wins");
+        stopInterval = true;
+        pointAdded = true;
+        addPointToO();
+      }
     }
-    if (boardFull && pointAdded === false && stopInterval === false) {
-        stopInterval = true; 
-        document.getElementById('msg').innerHTML = "It's a tie!";
-        setTimeout(nextGame, 2000);
-    }
-    if (yourCodeHasBeenExecuted === true) {
-       window.clearInterval(timer);
-    }
+  }
+  if (boardFull && pointAdded === false && stopInterval === false) {
+    stopInterval = true;
+    document.getElementById("msg").innerHTML = "It's a tie!";
+    setTimeout(nextGame, 2000);
+  }
+  if (yourCodeHasBeenExecuted === true) {
+    window.clearInterval(timer);
+  }
 }, interval);
 
+for (var i = 0; i < tds.length; i++) {
+  var td = tds[i];
+  td.addEventListener("click", function () {
+    var currentTd = event.target;
+    if (
+      currentTd.classList.contains("X") === false &&
+      currentTd.classList.contains("O") === false &&
+      oFunctionIsDone === true &&
+      gameEnd === false &&
+      pointAdded === false
+    ) {
+      currentTd.classList.add("X");
 
-
-
-for (var i = 0; i < (tds.length); i++) {
-    var td = tds[i];
-    td.addEventListener('click', function() {
-        var currentTd = event.target;
-        if (currentTd.classList.contains('X') === false && 
-        currentTd.classList.contains('O') === false &&
-        oFunctionIsDone === true &&
-        gameEnd === false &&
-        pointAdded === false) {
-            currentTd.classList.add('X');
-
-            //I added this function in, in order to get circle to not
-            //be placed because the interval wasn't quick enough to 
-            //switch gameEnd, allowing O to still be placed.
-            var checkingGame = function() {
-                for (var i = 0; i < winningLocations.length; i++) {
-                    var loc = winningLocations[i];
-                    var tdClass0 = tds[loc[0]].classList;
-                    var tdClass1 = tds[loc[1]].classList;
-                    var tdClass2 = tds[loc[2]].classList;
-                    if (tdClass0.contains('X') && tdClass1.contains('X') && tdClass2.contains('X')) {
-                        gameEnd = true;
-                    } else if (tdClass0.contains('O') && tdClass1.contains('O') && tdClass2.contains('O')) {
-                        gameEnd = true;
-                    }
-                }
-            }
-            checkingGame();
-            if (gameEnd === false) {
-                oFunctionIsDone = false;
-                setTimeout(function() {
-                    placeAnO();
-                    oFunctionIsDone = true}, 400);
-                    checkingGame();
-                
-            }
-        } else {
-            console.log('there is something already here');
+      //I added this function in, in order to get circle to not
+      //be placed because the interval wasn't quick enough to
+      //switch gameEnd, allowing O to still be placed.
+      var checkingGame = function () {
+        for (var i = 0; i < winningLocations.length; i++) {
+          var loc = winningLocations[i];
+          var tdClass0 = tds[loc[0]].classList;
+          var tdClass1 = tds[loc[1]].classList;
+          var tdClass2 = tds[loc[2]].classList;
+          if (
+            tdClass0.contains("X") &&
+            tdClass1.contains("X") &&
+            tdClass2.contains("X")
+          ) {
+            gameEnd = true;
+          } else if (
+            tdClass0.contains("O") &&
+            tdClass1.contains("O") &&
+            tdClass2.contains("O")
+          ) {
+            gameEnd = true;
+          }
         }
-    });
+      };
+      checkingGame();
+      if (gameEnd === false) {
+        oFunctionIsDone = false;
+        setTimeout(function () {
+          placeAnO();
+          oFunctionIsDone = true;
+        }, 400);
+        checkingGame();
+      }
+    } else {
+      console.log("there is something already here");
+    }
+  });
 }
 
 // this is so I can set up an array to check if the gameboard is full
 
 function randomizer() {
-    var random = Math.floor( Math.random() * tds.length);
-    return random;
+  var random = Math.floor(Math.random() * tds.length);
+  return random;
 }
 
 function placeAnO() {
-    var randomNum = randomizer();
-    var randomTd = tds[randomNum]; 
-    if (randomTd.classList.contains('X') === false && 
-    randomTd.classList.contains('O') === false) {
-        randomTd.classList.add('O');
-    } else if (boardFull === false && stopInterval === false) {
-        placeAnO();
-    }
+  var randomNum = randomizer();
+  var randomTd = tds[randomNum];
+  if (
+    randomTd.classList.contains("X") === false &&
+    randomTd.classList.contains("O") === false
+  ) {
+    randomTd.classList.add("O");
+  } else if (boardFull === false && stopInterval === false) {
+    placeAnO();
+  }
 }
 
 function addPointToX() {
-    var xPointElements = document.getElementById('xnum')
-    xPoints++;
-    xPointElements.innerHTML = xPoints;
-    document.getElementById('msg').innerHTML = 'X wins!'
-    setTimeout(nextGame, 2000);
+  var xPointElements = document.getElementById("xnum");
+  xPoints++;
+  xPointElements.innerHTML = xPoints;
+  document.getElementById("msg").innerHTML = "X wins!";
+  setTimeout(nextGame, 2000);
 }
 
 function addPointToO() {
-    var oPointElements = document.getElementById('onum');
-    oPoints++;
-    oPointElements.innerHTML = oPoints;
-    document.getElementById('msg').innerHTML = 'O wins!'
-    setTimeout(nextGame, 2000);
+  var oPointElements = document.getElementById("onum");
+  oPoints++;
+  oPointElements.innerHTML = oPoints;
+  document.getElementById("msg").innerHTML = "O wins!";
+  setTimeout(nextGame, 2000);
 }
 
 function nextGame() {
-    for (var i = 0; i < tds.length; i++) {
-        tds[i].classList.remove('O', 'X');
-    }
-    boardFull = false;
-    gameEnd = false;
-    isGameChecked = false;
-    oFunctionIsDone = true;
-    pointAdded = false;
-    stopInterval = false;
-    document.getElementById('msg').innerHTML = ''
+  for (var i = 0; i < tds.length; i++) {
+    tds[i].classList.remove("O", "X");
+  }
+  boardFull = false;
+  gameEnd = false;
+  isGameChecked = false;
+  oFunctionIsDone = true;
+  pointAdded = false;
+  stopInterval = false;
+  document.getElementById("msg").innerHTML = "";
 }
-
