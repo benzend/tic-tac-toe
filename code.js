@@ -481,8 +481,8 @@ function checkWhoWon() {
 // Selectors
 const cells = document.querySelectorAll("td");
 
-// Variables
-var winningLocations = [
+// Global Variables
+const winningLocations = [
   [0, 1, 2],
   [0, 3, 6],
   [0, 4, 8],
@@ -493,9 +493,25 @@ var winningLocations = [
   [2, 4, 6],
 ];
 
-// Checker
+// Global Checkers
+let xWins = false;
+let oWins = false;
+
+let xPts = 0;
+let oPts = 0;
+
+let xArr = [];
+let oArr = [];
 
 // Functions
+function nextGame() {
+  cells.forEach((c) => {
+    c.classList.remove("O");
+    c.classList.remove("X");
+    xWins = false;
+    oWins = false;
+  });
+}
 
 // Event Listeners
 cells.forEach((cell, index) => {
@@ -531,20 +547,47 @@ cells.forEach((cell, index) => {
 
           // If the board is full and there are no winners RESTART
         } else if (cellsArr.every(isFull)) {
-          cells.forEach((c) => {
-            c.classList.remove("O");
-            c.classList.remove("X");
-          });
+          nextGame();
         }
       };
       // Just calling the function to get the ball rolling
       findEmptySpot();
+
+      // Setting up xArr and oArr to see who wins
+      cells.forEach((c, index) => {
+        if (c.classList.contains("X")) {
+          xArr[index] = 1;
+          oArr[index] = 0;
+        } else if (c.classList.contains("O")) {
+          oArr[index] = 1;
+          xArr[index] = 0;
+        } else {
+          xArr[index] = 0;
+          oArr[index] = 0;
+        }
+      });
+
+      // Check if Won
+      winningLocations.forEach((loc) => {
+        if (xArr[loc[0]] === 1 && xArr[loc[1]] === 1 && xArr[loc[2]] === 1) {
+          xWins = true;
+        } else if (
+          oArr[loc[0]] === 1 &&
+          oArr[loc[1]] === 1 &&
+          oArr[loc[2]] === 1
+        ) {
+          oWins = true;
+        }
+      });
+
+      // Win handler
+      if (xWins) {
+        xPts++;
+        nextGame();
+      } else if (oWins) {
+        oPts++;
+        nextGame();
+      }
     }
   });
 });
-
-const isBelowThreshold = (currentValue) => currentValue < 40;
-
-const array1 = [1, 30, 39, 29, 10, 13];
-
-console.log(array1.every(isBelowThreshold));
