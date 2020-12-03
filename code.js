@@ -482,6 +482,7 @@ function checkWhoWon() {
 const cells = document.querySelectorAll("td");
 const xDisplay = document.querySelector("#xnum");
 const oDisplay = document.querySelector("#onum");
+const message = document.querySelector("#msg");
 
 // Global Variables
 const winningLocations = [
@@ -507,12 +508,15 @@ let oArr = [];
 
 // Functions
 function nextGame() {
-  cells.forEach((c) => {
-    c.classList.remove("O");
-    c.classList.remove("X");
-    xWins = false;
-    oWins = false;
-  });
+  setTimeout(() => {
+    cells.forEach((c) => {
+      c.classList.remove("O");
+      c.classList.remove("X");
+      xWins = false;
+      oWins = false;
+    });
+    message.innerHTML = "";
+  }, 1000);
 }
 
 // Event Listeners
@@ -549,6 +553,7 @@ cells.forEach((cell, index) => {
 
           // If the board is full and there are no winners RESTART
         } else if (cellsArr.every(isFull)) {
+          message.innerHTML = "It's a tie!";
           nextGame();
         }
       };
@@ -586,10 +591,12 @@ cells.forEach((cell, index) => {
       if (xWins) {
         xPts++;
         xDisplay.innerHTML = xPts;
+        message.innerHTML = "X Wins!";
         nextGame();
       } else if (oWins) {
         oPts++;
         oDisplay.innerHTML = oPts;
+        message.innerHTML = "O Wins!";
         nextGame();
       }
     }
