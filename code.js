@@ -481,14 +481,70 @@ function checkWhoWon() {
 // Selectors
 const cells = document.querySelectorAll("td");
 
+// Variables
+var winningLocations = [
+  [0, 1, 2],
+  [0, 3, 6],
+  [0, 4, 8],
+  [1, 4, 7],
+  [2, 5, 8],
+  [3, 4, 5],
+  [6, 7, 8],
+  [2, 4, 6],
+];
+
+// Checker
+
 // Functions
 
 // Event Listeners
 cells.forEach((cell, index) => {
   cell.addEventListener("click", () => {
-    if (!cell.classList.contains("O")) {
+    if (!cell.classList.contains("O") && !cell.classList.contains("X")) {
       cell.classList.add("X");
+      // This array is fed values from cells (a node list) in order to use .every method since node lists don't work with .every
+      // also set with one value as default and to false because the array gets rerendered everytime to its
+      // original state
+      const cellsArr = [false];
+
+      // This function is used with .every method
+      const isFull = (item) => item === true;
+
+      const findEmptySpot = () => {
+        const randomNumber = Math.floor(Math.random() * cells.length);
+        if (
+          !cells[randomNumber].classList.contains("O") &&
+          !cells[randomNumber].classList.contains("X")
+        ) {
+          cells[randomNumber].classList.add("O");
+        } else if (!cellsArr.every(isFull)) {
+          // I put this 'array pusher' here so it will always call before the findEmptySpot() function gets ran again, letting the system
+          // know that it has to stop trying to find a new position, as there are no open ones.
+          cells.forEach((c, index) => {
+            if (c.classList.contains("O") || c.classList.contains("X")) {
+              cellsArr[index] = true;
+            } else {
+              cellsArr[index] = false;
+            }
+          });
+          findEmptySpot();
+
+          // If the board is full and there are no winners RESTART
+        } else if (cellsArr.every(isFull)) {
+          cells.forEach((c) => {
+            c.classList.remove("O");
+            c.classList.remove("X");
+          });
+        }
+      };
+      // Just calling the function to get the ball rolling
+      findEmptySpot();
     }
   });
 });
-console.log(cells);
+
+const isBelowThreshold = (currentValue) => currentValue < 40;
+
+const array1 = [1, 30, 39, 29, 10, 13];
+
+console.log(array1.every(isBelowThreshold));
